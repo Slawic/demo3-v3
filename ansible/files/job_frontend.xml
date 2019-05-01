@@ -97,8 +97,10 @@ ng build --prod
                   <noDefaultExcludes>false</noDefaultExcludes>
                   <makeEmptyDirs>false</makeEmptyDirs>
                   <patternSeparator>[, ]+</patternSeparator>
-                  <execCommand>docker build -t arnio/eschool-front:0.0.1 -f frontend/Dockerfile .
-gcloud auth activate-service-account --key-file /tmp/ansible/.ssh/gcp_devops.json</execCommand>
+                  <execCommand>docker build -t eschool-frontend -f frontend/Dockerfile .
+docker tag eschool-frontend us.gcr.io/lyrical-chassis-232614/eschool-frontend:0.0.1
+gcloud auth activate-service-account --key-file /tmp/ansible/.ssh/gcp_devops.json
+gcloud docker -- push us.gcr.io/lyrical-chassis-232614/eschool-frontend</execCommand>
                   <execTimeout>120000</execTimeout>
                   <usePty>false</usePty>
                   <useAgentForwarding>false</useAgentForwarding>

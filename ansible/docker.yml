@@ -5,6 +5,7 @@
       - yum-utils
       - device-mapper-persistent-data
       - lvm2
+      - kubectl
 
 - name: Add Docker repo
   get_url:

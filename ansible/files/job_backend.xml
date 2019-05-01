@@ -101,7 +101,10 @@ cp /tmp/ansible/files/application.properties $WORKSPACE/backend/</command>
                   <noDefaultExcludes>false</noDefaultExcludes>
                   <makeEmptyDirs>false</makeEmptyDirs>
                   <patternSeparator>[, ]+</patternSeparator>
-                  <execCommand>docker build -t arnio/eschool-back:0.0.1 -f  backend/Dockerfile .</execCommand>
+                  <execCommand>docker build -t eschool-backend -f  backend/Dockerfile .
+docker tag eschool-backend us.gcr.io/lyrical-chassis-232614/eschool-backend:0.0.1
+gcloud auth activate-service-account --key-file /tmp/ansible/.ssh/gcp_devops.json
+gcloud docker -- push us.gcr.io/lyrical-chassis-232614/eschool-backend</execCommand>
                   <execTimeout>120000</execTimeout>
                   <usePty>false</usePty>
                   <useAgentForwarding>false</useAgentForwarding>

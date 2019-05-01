@@ -21,6 +21,7 @@ resource "google_sql_database_instance" "instance" {
             ipv4_enabled = "true"
             authorized_networks = [
                "${data.null_data_source.auth_mysql_allowed_1.*.outputs}",
+               
             ]
         }
     }
