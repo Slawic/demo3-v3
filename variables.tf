@@ -52,7 +52,7 @@ variable db_tier {
 
 variable db_instance_name {
   description = "The name of the master instance"
-  default     = "db-eschool17"
+  default     = "db-eschool19"
 }
 variable disk_autoresize {
   description = "Second Generation only. Configuration to increase storage size automatically."

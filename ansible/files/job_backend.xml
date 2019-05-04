@@ -104,6 +104,7 @@ cp /tmp/ansible/files/application.properties $WORKSPACE/backend/</command>
                   <execCommand>docker build -t eschool-backend -f  backend/Dockerfile .
 docker tag eschool-backend us.gcr.io/lyrical-chassis-232614/eschool-backend:0.0.1
 gcloud auth activate-service-account --key-file /tmp/ansible/.ssh/gcp_devops.json
+gcloud beta container clusters get-credentials eschool-claster --region us-central1 --project lyrical-chassis-232614
 gcloud docker -- push us.gcr.io/lyrical-chassis-232614/eschool-backend</execCommand>
                   <execTimeout>120000</execTimeout>
                   <usePty>false</usePty>
