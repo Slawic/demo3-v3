@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    external-dns.alpha.kubernetes.io/hostname: "lite-piratia.ru"
+spec:
+  rules:
+  - host: lite-piratia.ru
+    http:
+      paths:
+        - path: /api 
+          backend:
+            serviceName: eschool-backend
+            servicePort: 8080
+        - path: /*
+          backend:
+            serviceName: eschool-frontend
+            servicePort: 80

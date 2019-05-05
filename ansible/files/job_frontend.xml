@@ -18,7 +18,7 @@
       <paramsToUseForLimit></paramsToUseForLimit>
     </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
   </properties>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.9.4">
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.10.0">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
@@ -53,10 +53,11 @@ sonar.sources=.</properties>
       <task></task>
     </hudson.plugins.sonar.SonarRunnerBuilder>
     <hudson.tasks.Shell>
-      <command>cp -r /tmp/ansible/frontend $WORKSPACE/</command>
+      <command>cp -r /tmp/ansible/frontend $WORKSPACE/
+cp -r /tmp/ansible/kubernetes $WORKSPACE/</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>sed -i -e s+https://fierce-shore-32592.herokuapp.com+http://localhost:8080+g /var/lib/jenkins/workspace/job_frontend/src/app/services/token-interceptor.service.ts
+      <command>sed -i -e s+https://fierce-shore-32592.herokuapp.com+http://lite-piratia.ru:8080+g /var/lib/jenkins/workspace/job_frontend/src/app/services/token-interceptor.service.ts
 yarn install
 ng build --prod
 </command>
@@ -87,6 +88,22 @@ ng build --prod
                   <useAgentForwarding>false</useAgentForwarding>
                 </jenkins.plugins.publish__over__ssh.BapSshTransfer>
                 <jenkins.plugins.publish__over__ssh.BapSshTransfer>
+                  <remoteDirectory>kubernetes</remoteDirectory>
+                  <sourceFiles>**/kubernetes/*</sourceFiles>
+                  <excludes></excludes>
+                  <removePrefix>/kubernetes</removePrefix>
+                  <remoteDirectorySDF>false</remoteDirectorySDF>
+                  <flatten>false</flatten>
+                  <cleanRemote>false</cleanRemote>
+                  <noDefaultExcludes>false</noDefaultExcludes>
+                  <makeEmptyDirs>false</makeEmptyDirs>
+                  <patternSeparator>[, ]+</patternSeparator>
+                  <execCommand></execCommand>
+                  <execTimeout>120000</execTimeout>
+                  <usePty>false</usePty>
+                  <useAgentForwarding>false</useAgentForwarding>
+                </jenkins.plugins.publish__over__ssh.BapSshTransfer>
+                <jenkins.plugins.publish__over__ssh.BapSshTransfer>
                   <remoteDirectory>frontend</remoteDirectory>
                   <sourceFiles>**/dist/eSchool/**</sourceFiles>
                   <excludes></excludes>
@@ -100,8 +117,11 @@ ng build --prod
                   <execCommand>docker build -t eschool-frontend -f frontend/Dockerfile .
 docker tag eschool-frontend us.gcr.io/lyrical-chassis-232614/eschool-frontend:0.0.1
 gcloud auth activate-service-account --key-file /tmp/ansible/.ssh/gcp_devops.json
-gcloud beta container clusters get-credentials eschool-claster --region us-central1 --project lyrical-chassis-232614
-gcloud docker -- push us.gcr.io/lyrical-chassis-232614/eschool-frontend</execCommand>
+gcloud docker -- push us.gcr.io/lyrical-chassis-232614/eschool-frontend
+kubectl apply -f kubernetes/frontend-deployment.yml
+kubectl apply -f kubernetes/eschool-frontend-service.yml
+kubectl apply -f kubernetes/ingress-eschool.yml
+</execCommand>
                   <execTimeout>120000</execTimeout>
                   <usePty>false</usePty>
                   <useAgentForwarding>false</useAgentForwarding>

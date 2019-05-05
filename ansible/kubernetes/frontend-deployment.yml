@@ -1,0 +1,34 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: eschool-frontend-deployment
+  labels:
+    app: eschool-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: eschool-frontend
+  template:
+    metadata:
+      labels:
+        name: eschool-frontend
+    spec:
+      containers:
+      - name: frontend-app
+        image: us.gcr.io/lyrical-chassis-232614/eschool-frontend:0.0.1
+        livenessProbe:
+          httpGet: 
+            path: /
+            port: 80  
+          initialDelaySeconds: 90
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: / 
+            port: 80
+          initialDelaySeconds: 90
+          periodSeconds: 10
+        env:
+        - name: BACKEND_URI
+          value: http://lite-piratia.ru:8080

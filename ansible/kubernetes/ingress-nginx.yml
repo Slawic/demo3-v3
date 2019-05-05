@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-eschool
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: lite-piratia.ru
+    http:
+      paths:
+      - backend:
+          serviceName: eschool-frontend
+          servicePort: 80
+        path: /
+
+      - backend:
+          serviceName: eschool-backend
+          servicePort: 8080
+        path: /api

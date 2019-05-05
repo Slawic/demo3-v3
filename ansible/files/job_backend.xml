@@ -18,7 +18,7 @@
       <paramsToUseForLimit></paramsToUseForLimit>
     </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
   </properties>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.9.4">
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.10.0">
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
@@ -63,7 +63,9 @@ sonar.exclusions=**/*.java</properties>
     </hudson.tasks.Maven>
     <hudson.tasks.Shell>
       <command>cp -r /tmp/ansible/backend $WORKSPACE/
-cp /tmp/ansible/files/application.properties $WORKSPACE/backend/</command>
+cp /tmp/ansible/files/application.properties $WORKSPACE/backend/
+cp -r /tmp/ansible/kubernetes $WORKSPACE/
+</command>
     </hudson.tasks.Shell>
     <jenkins.plugins.publish__over__ssh.BapSshBuilderPlugin plugin="publish-over-ssh@1.20.1">
       <delegate>
@@ -91,6 +93,22 @@ cp /tmp/ansible/files/application.properties $WORKSPACE/backend/</command>
                   <useAgentForwarding>false</useAgentForwarding>
                 </jenkins.plugins.publish__over__ssh.BapSshTransfer>
                 <jenkins.plugins.publish__over__ssh.BapSshTransfer>
+                  <remoteDirectory>kubernetes</remoteDirectory>
+                  <sourceFiles>**/kubernetes/*</sourceFiles>
+                  <excludes></excludes>
+                  <removePrefix>/kubernetes</removePrefix>
+                  <remoteDirectorySDF>false</remoteDirectorySDF>
+                  <flatten>false</flatten>
+                  <cleanRemote>false</cleanRemote>
+                  <noDefaultExcludes>false</noDefaultExcludes>
+                  <makeEmptyDirs>false</makeEmptyDirs>
+                  <patternSeparator>[, ]+</patternSeparator>
+                  <execCommand></execCommand>
+                  <execTimeout>120000</execTimeout>
+                  <usePty>false</usePty>
+                  <useAgentForwarding>false</useAgentForwarding>
+                </jenkins.plugins.publish__over__ssh.BapSshTransfer>
+                <jenkins.plugins.publish__over__ssh.BapSshTransfer>
                   <remoteDirectory>backend</remoteDirectory>
                   <sourceFiles>**/*.jar</sourceFiles>
                   <excludes></excludes>
@@ -104,9 +122,15 @@ cp /tmp/ansible/files/application.properties $WORKSPACE/backend/</command>
                   <execCommand>docker build -t eschool-backend -f  backend/Dockerfile .
 docker tag eschool-backend us.gcr.io/lyrical-chassis-232614/eschool-backend:0.0.1
 gcloud auth activate-service-account --key-file /tmp/ansible/.ssh/gcp_devops.json
+gcloud docker -- push us.gcr.io/lyrical-chassis-232614/eschool-backend
 gcloud beta container clusters get-credentials eschool-claster --region us-central1 --project lyrical-chassis-232614
-gcloud docker -- push us.gcr.io/lyrical-chassis-232614/eschool-backend</execCommand>
-                  <execTimeout>120000</execTimeout>
+kubectl create secret generic cloudsql-instance-credentials --from-file=credentials.json=/tmp/ansible/.ssh/gcp_devops.json
+kubectl create secret generic cloudsql-db-credentials --from-literal=username=root --from-literal=password=devops095eSchool
+kubectl apply -f kubernetes/backend-deployment.yml
+kubectl apply -f kubernetes/eschool-backend-service.yml
+kubectl apply -f kubernetes/ingress-eschool.yml
+</execCommand>
+                  <execTimeout>150000</execTimeout>
                   <usePty>false</usePty>
                   <useAgentForwarding>false</useAgentForwarding>
                 </jenkins.plugins.publish__over__ssh.BapSshTransfer>
