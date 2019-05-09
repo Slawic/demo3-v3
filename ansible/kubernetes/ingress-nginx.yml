@@ -6,7 +6,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: lite-piratia.ru
+  - host: app.devops095.com
     http:
       paths:
       - backend:

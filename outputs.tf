@@ -11,6 +11,6 @@ output "public_ip_sql" {
 # output "internal_load_balancer_ip" {
 #    value = "${google_compute_forwarding_rule.default.ip_address}"
 # }
-output "public_ip_nat" {
+output "lb_public_ip" {
    value = ["${google_compute_address.address.*.address}"]
 }

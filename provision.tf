@@ -31,10 +31,10 @@ resource "null_resource" remoteExecProvisionerWFolder {
     content = "${data.template_file.app_conf.rendered}"
     destination = "/tmp/ansible/files/application.properties"
   }
-  #  provisioner "file" {
-  #   content = "${data.template_file.job_frontend.rendered}"
-  #   destination = "/tmp/ansible/files/job_frontend.xml"
-  # }
+   provisioner "file" {
+    content = "${data.template_file.job_frontend.rendered}"
+    destination = "/tmp/ansible/files/job_frontend.xml"
+  }
 
 }
 

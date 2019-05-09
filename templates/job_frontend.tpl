@@ -57,7 +57,7 @@ sonar.sources=.</properties>
 cp -r /tmp/ansible/kubernetes $WORKSPACE/</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>sed -i -e s+https://fierce-shore-32592.herokuapp.com+http://lite-piratia.ru:8080+g /var/lib/jenkins/workspace/job_frontend/src/app/services/token-interceptor.service.ts
+      <command>sed -i -e s+https://fierce-shore-32592.herokuapp.com+http://${lb_backend}:8080+g /var/lib/jenkins/workspace/job_frontend/src/app/services/token-interceptor.service.ts
 yarn install
 ng build --prod
 </command>
@@ -118,8 +118,8 @@ ng build --prod
 docker tag eschool-frontend us.gcr.io/lyrical-chassis-232614/eschool-frontend:0.0.1
 gcloud auth activate-service-account --key-file /tmp/ansible/.ssh/gcp_devops.json
 gcloud docker -- push us.gcr.io/lyrical-chassis-232614/eschool-frontend
-kubectl apply -f kubernetes/frontend-deployment.yml
-kubectl apply -f kubernetes/eschool-frontend-service.yml
+kubectl apply -f kubernetes/deployment-frontend.yml
+kubectl apply -f kubernetes/service-frontend.yml
 kubectl apply -f kubernetes/ingress-eschool.yml
 </execCommand>
                   <execTimeout>120000</execTimeout>

@@ -4,10 +4,10 @@ metadata:
   name: ingress
   annotations:
     kubernetes.io/ingress.class: "gce"
-    external-dns.alpha.kubernetes.io/hostname: "lite-piratia.ru"
+    external-dns.alpha.kubernetes.io/hostname: "app.devops095.com"
 spec:
   rules:
-  - host: lite-piratia.ru
+  - host: app.devops095.com
     http:
       paths:
         - path: /api 

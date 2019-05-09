@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
       - name: frontend-app
-        image: us.gcr.io/lyrical-chassis-232614/eschool-frontend:0.0.1
+        image: gcr.io/lyrical-chassis-232614/eschool-frontend:0.0.1
+        imagePullPolicy: Always
         livenessProbe:
           httpGet: 
             path: /
@@ -29,6 +30,5 @@ spec:
             port: 80
           initialDelaySeconds: 90
           periodSeconds: 10
-        env:
-        - name: BACKEND_URI
-          value: http://lite-piratia.ru:8080
+      imagePullSecrets:
+        - name: gcr-json-key
