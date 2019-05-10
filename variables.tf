@@ -1,13 +1,13 @@
 variable "key" {
-  default = "f:/SSHkey/gcp_devops.json"
+  default = "ansible/.ssh/gcp_devops.json"
 }
 variable "public_key_path" {
   description = "Path to file containing public key"
-  default     = "f:/SSHkey/devops095.pub"
+  default     = "ansible/.ssh/devops095.pub"
 }
 variable "private_key_path" {
   description = "Path to file containing private key"
-  default     = "f:/SSHkey/devops095_ossh.pem"
+  default     = "ansible/.ssh/devops095_ossh.pem"
 }
 variable "project" {
   default = "lyrical-chassis-232614"
@@ -52,7 +52,7 @@ variable db_tier {
 
 variable db_instance_name {
   description = "The name of the master instance"
-  default     = "db-eschool24"
+  default     = "db-eschool"
 }
 variable disk_autoresize {
   description = "Second Generation only. Configuration to increase storage size automatically."

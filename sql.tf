@@ -6,9 +6,11 @@ data "null_data_source" "auth_mysql_allowed_1" {
     
   }
 }
-
+resource "random_id" "db_name_id" {
+  byte_length = 4
+}
 resource "google_sql_database_instance" "instance" {
-    name               = "${var.project}-${var.db_instance_name}"
+    name               = "${var.project}-${var.db_instance_name}-${random_id.db_name_id.hex}"
     region             = "${var.region}"
     database_version   = "${var.database_version}"
 

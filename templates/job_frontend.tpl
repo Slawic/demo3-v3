@@ -57,7 +57,7 @@ sonar.sources=.</properties>
 cp -r /tmp/ansible/kubernetes $WORKSPACE/</command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>sed -i -e s+https://fierce-shore-32592.herokuapp.com+http://${lb_backend}:8080+g /var/lib/jenkins/workspace/job_frontend/src/app/services/token-interceptor.service.ts
+      <command>sed -i -e s+https://fierce-shore-32592.herokuapp.com+http://${lb_backend}+g /var/lib/jenkins/workspace/job_frontend/src/app/services/token-interceptor.service.ts
 yarn install
 ng build --prod
 </command>
@@ -115,9 +115,12 @@ ng build --prod
                   <makeEmptyDirs>false</makeEmptyDirs>
                   <patternSeparator>[, ]+</patternSeparator>
                   <execCommand>docker build -t eschool-frontend -f frontend/Dockerfile .
-docker tag eschool-frontend us.gcr.io/lyrical-chassis-232614/eschool-frontend:0.0.1
+docker tag eschool-frontend gcr.io/${project}/eschool-frontend:0.0.1
 gcloud auth activate-service-account --key-file /tmp/ansible/.ssh/gcp_devops.json
-gcloud docker -- push us.gcr.io/lyrical-chassis-232614/eschool-frontend
+gcloud docker -- push gcr.io/${project}/eschool-frontend
+gcloud beta container clusters get-credentials eschool-claster --region us-central1 --project ${project}
+kubectl create secret docker-registry gcr-json-key --docker-server=gcr.io --docker-username=_json_key --docker-password="$(cat /tmp/ansible/.ssh/gcp-viewer.json)" --docker-email=postexampl12356@gmail.com
+kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "gcr-json-key"}]}'
 kubectl apply -f kubernetes/deployment-frontend.yml
 kubectl apply -f kubernetes/service-frontend.yml
 kubectl apply -f kubernetes/ingress-eschool.yml

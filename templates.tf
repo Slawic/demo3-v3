@@ -18,8 +18,17 @@ data "template_file" "app_conf" {
   }
 }
 data "template_file" "job_frontend" {
-template = "${file("${path.module}/templates/job_frontend.tpl")}"
-vars {
-lb_backend = "${google_compute_address.address.address}"
+  template = "${file("${path.module}/templates/job_frontend.tpl")}"
+  vars {
+#    lb_backend = "${google_compute_address.address.address}"
+    lb_backend = "${google_dns_record_set.app.name}"
+    project = "${var.project}"
+  }
 }
+
+data "template_file" "job_backend" {
+  template = "${file("${path.module}/templates/job_backend.tpl")}"
+  vars {
+    project = "${var.project}"
+  }
 }
