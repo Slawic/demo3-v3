@@ -11,7 +11,7 @@
       <commonConfig class="jenkins.plugins.publish_over_ssh.BapSshCommonConfiguration">
         <secretPassphrase>{AQAAABAAAABAuHicDlHexO+hfIbORKpK268Mi/jZVU7D/qCFq+0JTZnU4eyvAzu/LAU8QHxH3wox5yOiq7MgBsUAIr3n/OdEzeQQud3c21w9/6vxyj38ROY=}</secretPassphrase>
         <key></key>
-        <keyPath>/tmp/ansible/.ssh/devops095_ossh.pem</keyPath>
+        <keyPath>/tmp/ansible/.ssh/private_key.pem</keyPath>
         <disableAllExec>false</disableAllExec>
       </commonConfig>
       <timeout>300000</timeout>

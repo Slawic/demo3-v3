@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend-app
-        image: gcr.io/lyrical-chassis-232614/eschool-frontend:0.0.1
+        image: gcr.io/google_project_name/eschool-frontend:0.0.1
         imagePullPolicy: Always
         livenessProbe:
           httpGet: 

@@ -26,24 +26,10 @@ resource "google_compute_router" "router" {
 }
 
 resource "google_compute_address" "address" {
-#  count  = 0
-#  count  = "${var.countnat}"
-#  name   = "nat-external-address-${count.index}"
   name   = "ip-external-address"
   region = "${var.region}"
 }
-# resource "google_compute_router_nat" "simple-nat" {
-#   name                               = "nat-1"
-#   router                             = "${google_compute_router.router.name}"
-#   region                             = "${var.region}"
-#   nat_ip_allocate_option             = "MANUAL_ONLY"
-#   nat_ips                            = ["${google_compute_address.address.*.self_link}"]
-#   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
-# }
-# data "google_compute_address" "my_address" {
-#   name   = "external-address"
-#   region = "${var.region}"
-# }
+
 resource "google_dns_record_set" "app" {
   name = "eschool.${google_dns_managed_zone.app.dns_name}"
   type = "A"
@@ -56,7 +42,7 @@ resource "google_dns_record_set" "app" {
 
 resource "google_dns_managed_zone" "app" {
   name     = "app-zone"
-  dns_name = "app.devops095.com."
+  dns_name = "app.demo3.com."
 }
 
 resource "google_compute_firewall" "ssh_firewall" {

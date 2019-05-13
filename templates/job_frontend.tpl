@@ -116,7 +116,7 @@ ng build --prod
                   <patternSeparator>[, ]+</patternSeparator>
                   <execCommand>docker build -t eschool-frontend -f frontend/Dockerfile .
 docker tag eschool-frontend gcr.io/${project}/eschool-frontend:0.0.1
-gcloud auth activate-service-account --key-file /tmp/ansible/.ssh/gcp_devops.json
+gcloud auth activate-service-account --key-file /tmp/ansible/.ssh/service_account.json
 gcloud docker -- push gcr.io/${project}/eschool-frontend
 gcloud beta container clusters get-credentials eschool-claster --region us-central1 --project ${project}
 kubectl create secret docker-registry gcr-json-key --docker-server=gcr.io --docker-username=_json_key --docker-password="$(cat /tmp/ansible/.ssh/gcp-viewer.json)" --docker-email=postexampl12356@gmail.com

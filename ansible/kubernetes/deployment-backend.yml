@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend-app
-        image: gcr.io/lyrical-chassis-232614/eschool-backend:0.0.1
+        image: gcr.io/google_project_name/eschool-backend:0.0.1
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
@@ -27,7 +27,7 @@ spec:
       - name: cloudsql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.11
         command: ["/cloud_sql_proxy", "--dir=/cloudsql",
-                  "-instances=lyrical-chassis-232614:us-central1:lyrical-chassis-232614-db-eschool24=tcp:3306",
+                  "-instances=google_project_name:us-central1:google_project_name-db-eschool24=tcp:3306",
                   "-credential_file=/secrets/cloudsql/credentials.json"]
         volumeMounts:
           - name: cloudsql-instance-credentials

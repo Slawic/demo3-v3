@@ -12,6 +12,7 @@ resource "null_resource" remoteExecProvisionerWFolder {
      source = "${var.private_key_path}"
      destination = "/home/centos/.ssh/id_rsa"
      }
+
   provisioner "remote-exec" {
     inline = [ "sudo chmod 600 /home/centos/.ssh/id_rsa" ]
   }

@@ -1,16 +1,16 @@
 variable "key" {
-  default = "ansible/.ssh/gcp_devops.json"
+  default = "ansible/.ssh/demo3-docker.json"
 }
 variable "public_key_path" {
   description = "Path to file containing public key"
-  default     = "ansible/.ssh/devops095.pub"
+  default     = "ansible/.ssh/demo3-docker.pub"
 }
 variable "private_key_path" {
   description = "Path to file containing private key"
-  default     = "ansible/.ssh/devops095_ossh.pem"
+  default     = "ansible/.ssh/demo3-docker.pem"
 }
 variable "project" {
-  default = "lyrical-chassis-232614"
+  default = "demo3-docker"
 }
 variable "region" {
   default = "us-central1"
@@ -42,7 +42,7 @@ variable "ip_cidr_range_private" {
 
 //Database variable
 variable database_version {
-  description = "The version of of the database. `MYSQL_5_6`"
+  description = "The version of of the database. `MYSQL_5_7`"
   default     = "MYSQL_5_7"
 }
 variable db_tier {
